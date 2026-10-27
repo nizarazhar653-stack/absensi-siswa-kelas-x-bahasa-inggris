@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Absensi Bahasa Inggris</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+<style>
+/* Layout: stacked white question cards on a lavender ground, purple-capped title card, same order as the source form. */
+:root {
+  --bg: #f0ebf8;
+  --card: #ffffff;
+  --ink: #202124;
+  --muted: #5f6368;
+  --line: #dadce0;
+  --accent: #673ab7;
+  --accent-ink: #ffffff;
+  --danger: #d93025;
+  --font: "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font);
+  font-size: 14px; line-height: 1.5; margin: 0;
+  padding-block: 12px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 640px; margin: 0 auto; display: grid; gap: 12px; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 22px 24px; min-width: 0;
+}
+.title-card { border-top: 10px solid var(--accent); padding-top: 22px; }
+h1 { font-size: clamp(24px, 7vw, 32px); font-weight: 400; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+.desc { margin: 0 0 12px; font-size: 14px; }
+.hint { margin: 0; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 12px; }
+.q-title { font-size: 16px; font-weight: 400; margin: 0 0 16px; display: block; padding: 0; }
+fieldset { border: 0; margin: 0; min-width: 0; }
+legend.q-title { float: left; width: 100%; }
+legend + .opt { clear: both; }
+form.wrap { width: 100%; margin: 0; }
+input[type="text"] {
+  width: 100%; max-width: 320px; font: inherit; font-size: 14px; color: var(--ink);
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  padding: 6px 0; border-radius: 0;
+}
+input[type="text"]:focus { outline: 0; border-bottom: 2px solid var(--accent); padding-bottom: 5px; }
+.opt { display: flex; align-items: center; gap: 14px; padding: 8px 0; cursor: pointer; font-size: 14px; }
+.opt input { position: absolute; opacity: 0; width: 20px; height: 20px; margin: 0; }
+.dot {
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--muted);
+  flex: none; display: grid; place-items: center;
+}
+.opt input:checked + .dot { border-color: var(--accent); }
+.opt input:checked + .dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.opt input:focus-visible + .dot { outline: 3px solid var(--accent); outline-offset: 2px; }
+.clear {
+  background: none; border: 0; color: var(--muted); font: inherit; font-size: 13px;
+  cursor: pointer; padding: 4px 0; margin-top: 8px; display: block; margin-left: auto;
+}
+.clear:hover { color: var(--accent); }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.btn {
+  font: inherit; font-weight: 500; font-size: 14px; letter-spacing: .02em;
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 4px;
+  padding: 10px 24px; cursor: pointer;
+}
+.btn:focus-visible, .clear:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.link { background: none; border: 0; color: var(--accent); font: inherit; font-weight: 500; cursor: pointer; padding: 10px 4px; }
+.status { margin: 0; color: var(--muted); }
+.pg { display: grid; gap: 12px; }
+.pgno { margin: 0; color: var(--muted); font-size: 13px; }
+.bar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin: 14px 0 10px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .5s ease; }
+.center { text-align: center; display: grid; justify-items: center; gap: 14px; }
+.stamp {
+  font-weight: 700; font-size: clamp(40px, 14vw, 64px); color: var(--danger);
+  border: 5px solid var(--danger); border-radius: 8px; padding: 2px 18px;
+  transform: rotate(-6deg); letter-spacing: .04em; line-height: 1.15;
+  animation: slam .35s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+@keyframes slam { from { transform: rotate(-6deg) scale(2.2); opacity: 0; } to { transform: rotate(-6deg) scale(1); opacity: 1; } }
+.center h2 { font-size: 22px; font-weight: 500; margin: 0; text-wrap: balance; }
+.center p { margin: 0; max-width: 42ch; font-size: 14px; }
+.slip { width: 100%; text-align: left; border: 1px dashed var(--line); border-radius: 4px; padding: 12px 14px; display: grid; gap: 4px; }
+@media (prefers-reduced-motion: reduce) { .stamp { animation: none; } .bar i { transition: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="card title-card">
+    <h1>Absensi Siswa Mapel Bahasa Inggris</h1>
+    <p class="desc">DAFTAR HADIR SISWA KELAS X MAPEL BAHASA INGGRIS</p>
+    <p class="hint">Isi nama, kelas, dan kehadiranmu, lalu tekan Kirim.</p>
+  </header>
+
+  <form id="f" class="wrap" style="gap:12px" novalidate>
+    <div class="pg" id="p1">
+    <div class="card">
+      <label class="q-title" for="nama">Nama</label>
+      <input type="text" id="nama" name="nama" autocomplete="off" placeholder="Jawaban Anda">
+    </div>
+
+    <fieldset class="card">
+      <legend class="q-title">Kelas</legend>
+      <label class="opt"><input type="radio" name="kelas" value="X TKJ 1"><span class="dot"></span>X TKJ 1</label>
+      <label class="opt"><input type="radio" name="kelas" value="X TKJ 2"><span class="dot"></span>X TKJ 2</label>
+      <label class="opt"><input type="radio" name="kelas" value="X TKJ 3"><span class="dot"></span>X TKJ 3</label>
+      <button type="button" class="clear" data-clear="kelas">Hapus pilihan</button>
+    </fieldset>
+
+    </div>
+
+    <div class="pg" id="p2">
+    <fieldset class="card">
+      <legend class="q-title">Kehadiran</legend>
+      <label class="opt"><input type="radio" name="hadir" value="Hadir"><span class="dot"></span>Hadir</label>
+      <label class="opt"><input type="radio" name="hadir" value="Sakit"><span class="dot"></span>Sakit</label>
+      <label class="opt"><input type="radio" name="hadir" value="Izin"><span class="dot"></span>Izin</label>
+      <button type="button" class="clear" data-clear="hadir">Hapus pilihan</button>
+    </fieldset>
+
+    <div class="row">
+      <button type="submit" class="btn">Kirim</button>
+      <button type="reset" class="link" id="reset">Kosongkan formulir</button>
+    </div>
+    </div>
+  </form>
+
+  <section class="card" id="loading" hidden aria-live="polite">
+    <strong>Mengirim jawaban...</strong>
+    <div class="bar"><i id="bar"></i></div>
+    <p class="status" id="status">Menghubungi server...</p>
+  </section>
+
+  <section class="card center" id="prank" hidden>
+    <div class="stamp">PRANK!</div>
+    <h2 id="judul">Selamat, Anda kena prank!</h2>
+    <p>Tidak ada data yang dikirim atau disimpan. Ini cuma bercanda. Tetap semangat belajar daring ya.</p>
+    <div class="slip" id="slip"></div>
+    <div class="row" style="justify-content:center">
+      <button type="button" class="btn" id="copy">Salin link untuk ngeprank teman</button>
+      <button type="button" class="link" id="again">Isi lagi</button>
+    </div>
+    <p class="status" id="copied"></p>
+  </section>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $("f"), loading = $("loading"), prank = $("prank");
+
+  function show(n) {
+    $("p1").hidden = n !== 1;
+    $("p2").hidden = n !== 2;
+    window.scrollTo(0, 0);
+  }
+
+
+  document.querySelectorAll("[data-clear]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll('input[name="' + b.getAttribute("data-clear") + '"]').forEach(function (r) { r.checked = false; });
+    });
+  });
+
+  var steps = [
+    "Menghubungi server...",
+    "Mencocokkan nama dengan daftar kelas...",
+    "Memeriksa kehadiran...",
+    "Mencatat jawaban..."
+  ];
+  var timers = [];
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  function val(name) {
+    var r = document.querySelector('input[name="' + name + '"]:checked');
+    return r ? r.value : "-";
+  }
+  function esc(s) {
+    return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var nama = $("nama").value.trim();
+    var kelas = val("kelas"), hadir = val("hadir");
+    f.hidden = true; prank.hidden = true; loading.hidden = false;
+    $("bar").style.width = "0";
+    steps.forEach(function (s, i) {
+      timers.push(setTimeout(function () {
+        $("status").textContent = s;
+        $("bar").style.width = (((i + 1) / steps.length) * 90) + "%";
+      }, i * 800));
+    });
+    timers.push(setTimeout(function () {
+      $("bar").style.width = "100%";
+      loading.hidden = true;
+      $("judul").textContent = "Selamat, Anda kena prank!";
+      $("slip").innerHTML =
+        "<div>Nama: <b>" + esc(nama || "-") + "</b></div>" +
+        "<div>Kelas: <b>" + esc(kelas) + "</b></div>" +
+        "<div>Kehadiran: <b>" + esc(hadir) + "</b></div>";
+      prank.hidden = false;
+    }, steps.length * 800 + 400));
+  });
+
+  $("again").addEventListener("click", function () {
+    clearTimers(); prank.hidden = true; loading.hidden = true; f.hidden = false; f.reset(); show(1);
+    $("copied").textContent = ""; window.scrollTo(0, 0);
+  });
+
+  function fallbackCopy() {
+    var t = document.createElement("textarea");
+    t.value = location.href; document.body.appendChild(t); t.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (x) {}
+    document.body.removeChild(t);
+    $("copied").textContent = ok ? "Link disalin." : "Salin manual dari bilah alamat browser.";
+  }
+  $("copy").addEventListener("click", function () {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(location.href).then(
+        function () { $("copied").textContent = "Link disalin."; }, fallbackCopy);
+    } else { fallbackCopy(); }
+  });
+})();
+</script>
+</body>
+</html>
